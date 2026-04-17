@@ -1,0 +1,20 @@
+Если переносишь через бэкап — миграция не нужна вообще. Бэкап уже содержит все таблицы со структурой и данными.
+
+Нужно только поменять строку подключения в двух местах:
+
+1. 
+DbContextFactory.cs
+ — для миграций:
+
+optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=Matie;Username=postgres;Password=НОВЫЙ_ПАРОЛЬ");
+
+
+2. MainWindow.axaml.cs — для приложения:
+
+.UseNpgsql("Host=localhost;Port=5432;Database=Matie;Username=postgres;Password=НОВЫЙ_ПАРОЛЬ")
+Порядок действий на новом компе:
+
+Установить PostgreSQL
+Восстановить бэкап в pgAdmin (имя БД должно совпадать — Matie)
+Поменять пароль в двух файлах выше
+Запустить приложение — всё готово, миграции не нужны
